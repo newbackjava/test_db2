@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `modelDB`.`buyTBL` (
                                                   `productName` CHAR(3) NOT NULL,
                                                   `userTBL_userName` CHAR(3) NOT NULL,
                                                   PRIMARY KEY (`productName`, `userTBL_userName`),
+
                                                   INDEX `fk_buyTBL_userTBL_idx` (`userTBL_userName` ASC) VISIBLE,
                                                   CONSTRAINT `fk_buyTBL_userTBL`
                                                       FOREIGN KEY (`userTBL_userName`)
