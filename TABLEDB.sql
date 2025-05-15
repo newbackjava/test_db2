@@ -159,6 +159,7 @@ WHERE
     TABLE_SCHEMA =  'tabledb' -- 예: '데이터베이스이름'
     AND TABLE_NAME = 'buyTBL';     -- 예: '테이블이름';
 
+
 -- 결과 테이블에서 확인 후 이름으로 삭제 가능
 ALTER TABLE buytbl
 DROP FOREIGN KEY FK_userTBL_buyTBL;
