@@ -71,5 +71,85 @@ WHERE PRICE > ALL (
     SELECT PRICE FROM PRODUCT WHERE COMPANY = 'c100' -- 10000, 9000, 8000
 );
 
+-- ---------------조인 테스트---------------
+use joindb;
+
+SELECT
+	C.ID AS CID,
+    C.NAME AS CNAME,
+    P.NAME AS PNAME
+FROM PRODUCT P
+INNER JOIN COMPANY C
+ON P.COMPANY = C.ID;
+
+-- left outer join
+-- 모든 제품과 그 제품을 만든 회사의 이름을 조회하세요. 회사 정보가 없는 제품도 포함합니다.
+
+SELECT 
+	C.ID AS CID,
+	P.ID AS Product_ID, 
+	P.NAME AS Product_Name, 
+	C.NAME AS Company_Name
+FROM PRODUCT P
+LEFT OUTER JOIN COMPANY C 
+ON P.COMPANY = C.ID;
+
+SELECT 
+	C.ID AS CID,
+	P.ID AS Product_ID, 
+	P.NAME AS Product_Name, 
+	C.NAME AS Company_Name
+FROM PRODUCT P
+RIGHT OUTER JOIN COMPANY C 
+ON P.COMPANY = C.ID;
+
+-- 셀프조인
+CREATE TABLE emptbl(emp CHAR(3), manager CHAR(3), empTel VARCHAR(8));
+
+INSERT INTO empTbl (emp, manager, empTel) VALUES
+('나사장', NULL, '0000'),
+('김재무', '나사장', '2222'),
+('김부장', '김재무', '2222-1'),
+('이부장', '김재무', '2222-2'),
+('우대리', '이부장', '2222-2-1'),
+('지사원', '이부장', '2222-2-2'),
+('이영업', '나사장', '1111'),
+('한과장', '이영업', '1111-1'),
+('최정보', '나사장', '5355'),
+('윤차장', '최정보', '3355-1'),
+('이주임', '윤자장', '5335-1-1');
+
+select * from empTbl;
+
+delete from empTbl;
+
+SELECT 
+	A.EMP AS '찾을사람이름',
+    B.EMP AS '상관이름',
+    B.EMPTEL AS '상관연락처'
+FROM empTbl A
+INNER JOIN empTbl B
+ON A.MANAGER = B.EMP
+WHERE A.EMP = '우대리';
+
+CREATE TABLE `company` (
+  `ID` varchar(50) NOT NULL,
+  `NAME` varchar(100) DEFAULT NULL,
+  `ADDR` varchar(200) DEFAULT NULL,
+  `TEL` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
