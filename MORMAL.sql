@@ -8,6 +8,7 @@ CREATE TABLE TOTAL_TABLE (
     등급 ENUM('gold', 'vip', 'silver')
 );
 
+
 INSERT INTO TOTAL_TABLE (고객아이디, 이벤트번호, 당첨여부, 고객이름, 등급)
 VALUES 
 ('apple', 'E001', 'Y', '정소화', 'gold'),
