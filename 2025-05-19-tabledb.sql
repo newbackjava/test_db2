@@ -298,10 +298,10 @@ INSERT INTO usertbl VALUES ('WB3', '원빈2', 1990, null, '019', '9876543', null
 INSERT INTO usertbl VALUES ('A', '원빈', 1982, '대전', '019', '9876543', 176, '2020.5.5');
 
 -- default "111"
--- - null : default로 명시, 컬럼명시, 다른 값 --> 111, null도 가능
+-- - null : default로 명시, 컬럼명시X, 다른 값 --> 111, null도 가능
 -- 		insert into table명 values(1, null); --> null을 쓴 경우 자동으로 default들어가지 않고
 -- 		null로 들어감.
--- - not null : dafult로 명시, 컬럼명시, 다른 값 --> 111, null불가능
+-- - not null : dafult로 명시, 컬럼명시X, 다른 값 --> 111, null불가능
 -- 		insert into table명 values(2, null); --> 불가능
 
 SELECT * FROM usertbl;
