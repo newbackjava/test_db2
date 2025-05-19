@@ -6,26 +6,26 @@ USE tabledb;
 DROP TABLE IF EXISTS usertbl;
 
 CREATE TABLE usertbl(
-                        userID     CHAR(8) NOT NULL PRIMARY KEY,
-                        name       VARCHAR(10) NOT NULL,
-                        birthYear  INT NOT NULL,
-                        addr       CHAR(2) NOT NULL,
-                        mobile1    CHAR(3) NULL,
-                        mobile2    CHAR(8) NULL,
-                        height     SMALLINT NULL,
-                        mDate      DATE NULL
+    userID     CHAR(8) NOT NULL PRIMARY KEY,
+    name       VARCHAR(10) NOT NULL,
+    birthYear  INT NOT NULL,
+    addr       CHAR(2) NOT NULL,
+    mobile1    CHAR(3) NULL,
+    mobile2    CHAR(8) NULL,
+    height     SMALLINT NULL,
+    mDate      DATE NULL
 );
 
 DROP TABLE IF EXISTS buytbl;
 
 CREATE TABLE buytbl(
-                       num INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                       userid CHAR(8) NOT NULL,
-                       prodName CHAR(6) NOT NULL,
-                       groupName CHAR(4) NULL,
-                       price INT NOT NULL,
-                       amount SMALLINT NOT NULL,
-                       FOREIGN KEY(userid) REFERENCES usertbl(userID)
+  num INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  userid CHAR(8) NOT NULL,
+  prodName CHAR(6) NOT NULL,
+  groupName CHAR(4) NULL,
+  price INT NOT NULL,
+  amount SMALLINT NOT NULL,
+  FOREIGN KEY(userid) REFERENCES usertbl(userID)
 );
 
 -- 값 넣을 때 외래키가 연결되어있지 않은 것부터 넣어야함.
@@ -39,7 +39,7 @@ INSERT INTO buytbl VALUES(NULL, 'KBS', '운동화', NULL, 30, 2);
 INSERT INTO buytbl VALUES(NULL, 'KBS', '노트북', '전자', 1000, 1);
 
 -- 외래키로 설정된 항목에 JYP값이 없으므로 에러(참조 무결성 에러)
-INSERT INTO buytbl VALUES(NULL, 'JYP', '모니터', '전자', 200, 1);
+INSERT INTO buytbl VALUES(NULL, 'JYP', '모니터', '전자', 200, 1); 
 -- Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails (`tabledb`.`buytbl`, CONSTRAINT `buytbl_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `usertbl` (`userID`))	0.015 sec
 
 SELECT * FROM usertbl;
@@ -51,10 +51,10 @@ SELECT * FROM buytbl;
 DROP TABLE IF EXISTS usertbl2;
 
 CREATE TABLE usertbl2 (
-                          userID CHAR(8) NOT NULL,
-                          name VARCHAR(10) NOT NULL,
-                          birthYear INT NOT NULL,
-                          CONSTRAINT PRIMARY KEY PK_userTBL_userID(userID)
+  userID CHAR(8) NOT NULL,
+  name VARCHAR(10) NOT NULL,
+  birthYear INT NOT NULL,
+  CONSTRAINT PRIMARY KEY PK_userTBL_userID(userID)
 );
 
 -- ✅ 기본키(복합키) 제약조건
@@ -63,12 +63,12 @@ CREATE TABLE usertbl2 (
 DROP TABLE IF EXISTS prodtbl;
 
 CREATE TABLE prodTbl (
-                         prodCode CHAR(3) NOT NULL,
-                         prodID   CHAR(4) NOT NULL,
-                         prodDate DATETIME NOT NULL,
-                         prodCur  CHAR(10) NULL,
-                         CONSTRAINT PK_prodtbl_proCode_prodID
-                             PRIMARY KEY (prodCode, prodID)
+  prodCode CHAR(3) NOT NULL,
+  prodID   CHAR(4) NOT NULL,
+  prodDate DATETIME NOT NULL,
+  prodCur  CHAR(10) NULL,
+  CONSTRAINT PK_prodtbl_proCode_prodID
+             PRIMARY KEY (prodCode, prodID)
 );
 
 INSERT INTO prodTbl VALUES ('A01', 'P100', '2023-01-01 10:00:00', 'USD');
@@ -84,17 +84,17 @@ DESC prodTbl;
 
 DROP TABLE IF EXISTS buyTBL, userTBL;
 CREATE TABLE userTBL(
-                        userID    CHAR(8) NOT NULL PRIMARY KEY,
-                        name      VARCHAR(1) NOT NULL,
-                        birthYear INT NOT NULL
+  userID    CHAR(8) NOT NULL PRIMARY KEY,
+  name      VARCHAR(1) NOT NULL,
+  birthYear INT NOT NULL
 );
 
 CREATE TABLE buyTBL
 (
-    num      INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    userID   CHAR(8) NOT NULL,
-    prodName CHAR(6) NOT NULL,
-    FOREIGN KEY(userID) REFERENCES userTBL(userID)
+  num      INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  userID   CHAR(8) NOT NULL,
+  prodName CHAR(6) NOT NULL,
+  FOREIGN KEY(userID) REFERENCES userTBL(userID)
 );
 
 DESC buyTBL;
@@ -106,7 +106,7 @@ INSERT INTO userTBL VALUES ('USER002', '이', 1992);
 -- buyTBL에 구매정보 등록 (존재하는 userID 사용)
 -- userId는 pk가 설정되어있어서 중복X(unique), not null 자동체크해줌.
 -- 엔터티(대상)에 문제가 없는 데이터가 들어가게 됨.
--- 개체 무결성(pk설정해서 not null, unique설정함)
+-- 개체 무결성(pk설정해서 not null, unique설정함) 
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER001', '운동화');
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER002', '노트북');
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER002', '마우스');
@@ -118,7 +118,7 @@ SELECT * FROM buyTBL;
 -- 참조 무결성(fk설정해서 원본과 일치하는 데이터가 들어가게 설정함.)
 -- 존재하지 않는 사용자 ID
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER999', '키보드'); -- X
--- ERROR 1452 (23000): Cannot add or update a child row:
+-- ERROR 1452 (23000): Cannot add or update a child row: 
 -- a foreign key constraint fails (`yourdb`.`buyTBL`, CONSTRAINT `buyTBL_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `userTBL` (`userID`))
 
 
@@ -129,9 +129,9 @@ DROP TABLE IF EXISTS buyTBL;
 
 -- AUTO_INCREMENT는 MySQL에서 숫자형 기본 키를 자동으로 증가시키는 기능
 CREATE TABLE buyTBL (
-                        num  INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                        userID CHAR(8) NOT NULL,
-                        prodName CHAR(6) NOT NULL
+  num  INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  userID CHAR(8) NOT NULL,
+  prodName CHAR(6) NOT NULL
 );
 
 -- pk인 경우, autoincrement설정시 not null생략 가능
@@ -166,16 +166,16 @@ DROP TABLE IF EXISTS buyTBL;
 
 -- AUTO_INCREMENT는 MySQL에서 숫자형 기본 키를 자동으로 증가시키는 기능
 CREATE TABLE buyTBL (
-                        num  INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                        userID CHAR(8) NOT NULL,
-                        prodName CHAR(6) NOT NULL
+  num  INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  userID CHAR(8) NOT NULL,
+  prodName CHAR(6) NOT NULL
 );
 
 ALTER TABLE buyTBL
-    ADD CONSTRAINT FK_userTBL_buyTBL
-        FOREIGN KEY(userID)
-            REFERENCES userTBL(userID);
-
+  ADD CONSTRAINT FK_userTBL_buyTBL
+  FOREIGN KEY(userID)
+  REFERENCES userTBL(userID);
+  
 desc buyTBL;
 
 -- CONSTRAINT FK_userTBL_buyTBL생략 가능
@@ -184,7 +184,7 @@ desc buyTBL;
 -- buytbl은 테이블 이름이고, ibfk는 InnoDB Foreign Key의 약자
 -- buytbl_ibfk_1
 -- buytbl_ibfk_2
--- --> 제약조건의 상세내용을 알 수 없음.
+-- --> 제약조건의 상세내용을 알 수 없음. 
 -- --> 정확한 이름을 명시하고자 하는 경우 제약조건이름을 써주세요.!
 
 -- ALTER TABLE buyTBL
@@ -192,20 +192,20 @@ desc buyTBL;
 -- REFERENCES userTBL(userID);
 -- 제약조건 목록 알고 싶은 경우
 
-SELECT
+SELECT 
     CONSTRAINT_NAME,
     CONSTRAINT_TYPE,
     TABLE_NAME
-FROM
+FROM 
     INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-WHERE
+WHERE 
     TABLE_SCHEMA =  'tabledb' -- 예: '데이터베이스이름'
-  AND TABLE_NAME = 'buyTBL';     -- 예: '테이블이름';
+    AND TABLE_NAME = 'buyTBL';     -- 예: '테이블이름';
 
 -- 결과 테이블에서 확인 후 이름으로 삭제 가능
 ALTER TABLE buytbl
-    DROP
-        FOREIGN KEY FK_userTBL_buyTBL;
+DROP 
+FOREIGN KEY FK_userTBL_buyTBL;
 
 
 -- autoincrement test!
@@ -213,7 +213,7 @@ INSERT INTO buyTBL (userID, prodName) VALUES ('USER001', '운동화');
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER002', '노트북');
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER001', '키보드');
 
-SELECT * FROM buyTBL;
+SELECT * FROM buyTBL; 
 -- num이 자동으로 1부터 증가됨 ✅
 -- | num | userID  | prodName |
 -- | --- | ------- | -------- |
@@ -225,7 +225,7 @@ SELECT * FROM buyTBL;
 -- 이후 자동 증가 값은 11부터 시작됨
 INSERT INTO buyTBL VALUES (10, 'USER003', '마우스');
 INSERT INTO buyTBL (userID, prodName) VALUES ('USER003', '모니터');
-SELECT * FROM buyTBL;
+SELECT * FROM buyTBL; 
 -- | num | userID  | prodName |
 -- | --- | ------- | -------- |
 -- | 11  | USER003 | 모니터     |
@@ -239,10 +239,10 @@ USE tableDB;
 DROP TABLE IF EXISTS buyTBL, userTBL;
 
 CREATE TABLE userTBL (
-                         userID    CHAR(8) NOT NULL PRIMARY KEY,
-                         name      VARCHAR(10) NOT NULL,
-                         birthYear INT NOT NULL,
-                         email     CHAR(30) NULL UNIQUE
+  userID    CHAR(8) NOT NULL PRIMARY KEY,
+  name      VARCHAR(10) NOT NULL,
+  birthYear INT NOT NULL,
+  email     CHAR(30) NULL UNIQUE
 );
 
 INSERT INTO userTBL VALUES ('USER001', '홍길동', 1990, 'hong@example.com');
@@ -254,12 +254,12 @@ INSERT INTO userTBL VALUES ('USER003', '이영희', 1995, 'hong@example.com'); -
 
 DROP TABLE IF EXISTS userTBL;
 
-CREATE TABLE userTBL(
-                        userID    CHAR(8) PRIMARY KEY,
-                        name      VARCHAR(10),
-                        birthYear INT CHECK (birthYear >= 1900 AND birthyear <= 2023),
-                        mobile1   CHAR(3) NULL,
-                        CONSTRAINT CK_name CHECK ( name IS NOT NULL)
+CREATE TABLE userTBL( 
+  userID    CHAR(8) PRIMARY KEY,
+  name      VARCHAR(10),
+  birthYear INT CHECK (birthYear >= 1900 AND birthyear <= 2023),
+  mobile1   CHAR(3) NULL,
+  CONSTRAINT CK_name CHECK ( name IS NOT NULL)
 );
 
 INSERT INTO userTBL VALUES ('ABCD1234', '홍길동', 1995, '010');
@@ -272,20 +272,20 @@ INSERT INTO userTBL VALUES ('EFGH5678', NULL, 1980, '011'); -- X
 DROP TABLE IF EXISTS userTBL;
 
 CREATE TABLE userTBL(
-                        userID    CHAR(8) NOT NULL PRIMARY KEY,
-                        name      VARCHAR(10) NOT NULL,
-                        birthyear INT NOT NULL DEFAULT -1,
-                        addr      CHAR(2) NOT NULL DEFAULT '서울',
-                        mobile1   CHAR(3) NULL,
-                        mobi1e2   CHAR(8) NULL,
-                        height    SMALLINT NULL DEFAULT 170,
-                        mDate     DATE NULL
+  userID    CHAR(8) NOT NULL PRIMARY KEY,
+  name      VARCHAR(10) NOT NULL,
+  birthyear INT NOT NULL DEFAULT -1,
+  addr      CHAR(2) NOT NULL DEFAULT '서울',
+  mobile1   CHAR(3) NULL,
+  mobi1e2   CHAR(8) NULL,
+  height    SMALLINT NULL DEFAULT 170,
+  mDate     DATE NULL
 );
 
 desc usertbl;
 
 -- default문은 DEFAULT로 설정된 값을 자동 입력한다.
-INSERT INTO usertbl VALUES ('LHL', '이혜리', default, default,'011', '1234567',
+INSERT INTO usertbl VALUES ('LHL', '이혜리', default, default,'011', '1234567', 
                             default, '2023.12.12');
 select * from usertbl;
 
@@ -312,28 +312,28 @@ SELECT * FROM usertbl;
 USE tabledb;
 
 ALTER TABLE usertbl
-    ADD homepage VARCHAR(30) -- 열 추가
-        DEFAULT 'http://www.hanbit.co.kr' -- 디폴트 값
-        NULL;  -- NULL 허용함
+ADD homepage VARCHAR(30) -- 열 추가
+	DEFAULT 'http://www.hanbit.co.kr' -- 디폴트 값
+	NULL;  -- NULL 허용함
 
 -- 스키마 확인
 desc usertbl;
 
 -- 컬럼 삭제
 ALTER TABLE usertbl
-    DROP COLUMN mobile1;
+DROP COLUMN mobile1;
 
 desc usertbl;
 
 -- 컬럼 데이타타입 변경
 ALTER TABLE usertbl
-    CHANGE COLUMN name uName VARCHAR(20) NULL;
+CHANGE COLUMN name uName VARCHAR(20) NULL;
 
 desc usertbl;
 
 -- 제약조건 삭제
 ALTER TABLE usertbl
-    DROP PRIMARY KEY;
+DROP PRIMARY KEY;
 
 desc usertbl;
 
