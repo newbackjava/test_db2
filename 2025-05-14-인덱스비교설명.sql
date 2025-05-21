@@ -29,6 +29,7 @@ CREATE TABLE employees_with_index (
 );
 
 
+
 -- ✅ 저장 프로시저 정의 시작 (100,000건 더미 데이터를 삽입하기 위한 루프 구조)
 DELIMITER $$
 
@@ -65,12 +66,15 @@ SELECT name, department, age, salary FROM employees_no_index;
 
 -- ✅ 인덱스 없는 테이블에서 부서명이 'Engineering'인 데이터를 검색
 -- 전체 테이블을 탐색 (Full Table Scan)할 가능성이 높음
-EXPLAIN SELECT * FROM employees_no_index WHERE department = 'Engineering';
+EXPLAIN SELECT * FROM employees_no_index 
+WHERE department = 'Engineering';
 
 
 -- ✅ 인덱스 있는 테이블에서 동일한 검색 실행
 -- 인덱스를 통해 빠르게 검색됨 (Index Range Scan 또는 Index Ref Scan)
-EXPLAIN SELECT * FROM employees_with_index WHERE department = 'Engineering';
+EXPLAIN SELECT * FROM employees_with_index 
+WHERE department = 'Engineering';
 
 -- ✅ 실제 인덱스 검색 쿼리 실행 (결과 확인용)
-SELECT * FROM employees_with_index WHERE department = 'Engineering';
+SELECT * FROM employees_with_index 
+WHERE department = 'Engineering';
